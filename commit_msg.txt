@@ -1,1 +1,1 @@
-Show full javac error output in CI
+Show errors before failing build
