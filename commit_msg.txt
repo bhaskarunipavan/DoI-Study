@@ -1,1 +1,1 @@
-Fix stream API calls and enable desugaring for API 24 compat
+Show full Java compile errors in CI log

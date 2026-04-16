@@ -26,10 +26,14 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build debug APK
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleDebug 2>&1 | tee build_output.txt; exit ${PIPESTATUS[0]}
         env:
           ANDROID_HOME: /usr/local/lib/android/sdk
           ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+
+      - name: Show Java errors
+        if: failure()
+        run: grep -A 5 "error:" build_output.txt || cat build_output.txt | tail -80
 
       - name: Verify APK exists
         run: ls -lh app/build/outputs/apk/debug/app-debug.apk
