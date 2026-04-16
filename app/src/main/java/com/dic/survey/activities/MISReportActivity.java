@@ -40,6 +40,7 @@ public class MISReportActivity extends AppCompatActivity {
         }
         container = findViewById(R.id.misContainer);
         loadReports();
+        findViewById(R.id.btnRefresh).setOnClickListener(v -> loadReports());
     }
 
     private void loadReports() {

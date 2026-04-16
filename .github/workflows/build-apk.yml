@@ -7,9 +7,6 @@ on:
     branches: [ main, master ]
   workflow_dispatch:
 
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   build:
     name: Build Debug APK
@@ -24,9 +21,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+          cache: gradle
 
       - name: Cache Gradle packages
         uses: actions/cache@v4
@@ -38,17 +33,29 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Grant execute permission and build APK
+      - name: Setup Android SDK
         run: |
-          chmod +x gradlew
-          ./gradlew assembleDebug --stacktrace --no-daemon
-        env:
-          ANDROID_HOME: ${{ env.ANDROID_SDK_ROOT }}
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
+          ls $ANDROID_HOME/platforms || true
+          ls $ANDROID_HOME/build-tools || true
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list_installed || true
 
-      - name: Verify APK exists
+      - name: Accept Android SDK licenses
         run: |
-          echo "APK built successfully:"
-          ls -lh app/build/outputs/apk/debug/app-debug.apk
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-34" "build-tools;34.0.0" || true
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --stacktrace --no-daemon --info 2>&1 | tail -100
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+
+      - name: List APK output
+        run: find . -name "*.apk" -type f
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
@@ -86,21 +93,19 @@ jobs:
           name: "DIC Survey APK — ${{ steps.vars.outputs.sha_short }}"
           body: |
             ## DIC Survey App — Android APK
+            Built from commit `${{ steps.vars.outputs.sha_short }}`
 
-            **Auto-built from commit:** `${{ steps.vars.outputs.sha_short }}`
-
-            ### How to install
+            ### Install Instructions
             1. Download `app-debug.apk` below
-            2. On your Android phone: Settings → Security → Enable "Install from unknown sources"
-            3. Open the downloaded APK and install
-            4. Login with your Officer ID and select your district
+            2. Phone: Settings → Security → Allow unknown sources
+            3. Open APK → Install → Done
 
-            ### Features
-            - 4 questionnaire types: DIC, Enterprise, Association, Stakeholder
-            - Fully offline — all responses saved locally on device
-            - Auto-sync to Supabase when internet is available
-            - All 33 Telangana districts pre-loaded
-            - CSV export of all responses
+            ### What's included
+            - 4 questionnaire types: DIC/DoI, Enterprise, Association, Stakeholder
+            - MIS Reports dashboard with charts and stats
+            - Full offline mode with auto-sync to Supabase
+            - All 33 Telangana districts
+            - CSV export
           files: ./apk/app-debug.apk
           draft: false
           prerelease: false
