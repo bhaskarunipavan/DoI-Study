@@ -13,6 +13,8 @@ import com.dic.survey.database.SurveyDatabase;
 import com.dic.survey.models.SurveyResponse;
 import com.dic.survey.utils.PrefManager;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -101,15 +103,15 @@ public class MISReportActivity extends AppCompatActivity {
 
         if (!districtMap.isEmpty()) {
             addSectionHeader("Top Districts by Response Count");
-            java.util.List<Map.Entry<String,Integer>> dList = new java.util.ArrayList<>(districtMap.entrySet());
-            java.util.Collections.sort(dList, (a, b) -> b.getValue() - a.getValue());
+            List<Map.Entry<String,Integer>> dList = new ArrayList<>(districtMap.entrySet());
+            Collections.sort(dList, (a, b) -> b.getValue() - a.getValue());
             int dLimit = Math.min(10, dList.size());
             for (int i = 0; i < dLimit; i++) addDistrictRow(dList.get(i).getKey(), dList.get(i).getValue(), total);
         }
         if (!officerMap.isEmpty()) {
             addSectionHeader("Responses by Officer");
-            java.util.List<Map.Entry<String,Integer>> oList = new java.util.ArrayList<>(officerMap.entrySet());
-            java.util.Collections.sort(oList, (a, b) -> b.getValue() - a.getValue());
+            List<Map.Entry<String,Integer>> oList = new ArrayList<>(officerMap.entrySet());
+            Collections.sort(oList, (a, b) -> b.getValue() - a.getValue());
             for (Map.Entry<String,Integer> e : oList) addOfficerRow(e.getKey(), e.getValue());
         }
 
@@ -118,8 +120,8 @@ public class MISReportActivity extends AppCompatActivity {
 
         addSectionHeader("Recent Activity (Last 10)");
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm", Locale.getDefault());
-        java.util.List<SurveyResponse> sorted = new java.util.ArrayList<>(all);
-        java.util.Collections.sort(sorted, (a, b) -> Long.compare(
+        List<SurveyResponse> sorted = new ArrayList<>(all);
+        Collections.sort(sorted, (a, b) -> Long.compare(
             b.updatedAt > 0 ? b.updatedAt : b.createdAt,
             a.updatedAt > 0 ? a.updatedAt : a.createdAt));
         int limit = Math.min(10, sorted.size());
