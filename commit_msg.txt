@@ -1,1 +1,1 @@
-Fix MISReport imports ArrayList Collections Map.Entry
+Show full javac error output in CI

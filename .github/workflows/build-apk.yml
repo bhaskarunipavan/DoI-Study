@@ -26,14 +26,25 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build debug APK
-        run: ./gradlew assembleDebug 2>&1 | tee build_output.txt; exit ${PIPESTATUS[0]}
+        run: ./gradlew assembleDebug --info 2>&1 | tee build_output.txt; exit ${PIPESTATUS[0]}
         env:
           ANDROID_HOME: /usr/local/lib/android/sdk
           ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
 
       - name: Show Java errors
         if: failure()
-        run: grep -A 5 "error:" build_output.txt || cat build_output.txt | tail -80
+        run: |
+          echo "=== JAVA ERRORS ==="
+          grep -n "error:" build_output.txt | head -30
+          echo "=== AROUND FIRST ERROR ==="
+          FIRST=$(grep -n "error:" build_output.txt | head -1 | cut -d: -f1)
+          if [ ! -z "$FIRST" ]; then
+            START=$((FIRST - 2))
+            END=$((FIRST + 10))
+            sed -n "${START},${END}p" build_output.txt
+          fi
+          echo "=== LAST 100 LINES ==="
+          tail -100 build_output.txt
 
       - name: Verify APK exists
         run: ls -lh app/build/outputs/apk/debug/app-debug.apk
