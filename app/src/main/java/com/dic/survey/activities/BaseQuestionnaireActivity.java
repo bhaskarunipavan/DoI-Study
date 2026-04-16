@@ -78,7 +78,7 @@ public abstract class BaseQuestionnaireActivity extends AppCompatActivity {
         tvStepLabel.setText("Section " + (s + 1) + " of " + getTotalSections());
         progressBar.setProgress((int)(((s + 1f) / getTotalSections()) * 100));
         renderSection(s);
-        findViewById(R.id.scrollView).scrollTo(0, 0);
+        ((androidx.core.widget.NestedScrollView) findViewById(R.id.scrollView)).scrollTo(0, 0);
     }
 
     protected void header(String t) {

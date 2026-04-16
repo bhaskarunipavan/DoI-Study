@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             public void onAvailable() {
                 runOnUiThread(() -> {
                     isOnline = true;
-                    Snackbar.make(findViewById(android.R.id.content),
+                    Snackbar.make(findViewById(R.id.btnViewResponses),
                         "Back online — syncing…", Snackbar.LENGTH_SHORT).show();
                     triggerSync();
                 });
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void triggerSync() {
         if (!isOnline) {
-            Snackbar.make(findViewById(android.R.id.content),
+            Snackbar.make(findViewById(R.id.btnViewResponses),
                 "No connection — will sync when online", Snackbar.LENGTH_SHORT).show();
             return;
         }
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSyncComplete(int synced, int failed) {
                 String msg = synced > 0 ? synced + " response(s) synced" : "All responses synced";
-                Snackbar.make(findViewById(android.R.id.content), msg, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(findViewById(R.id.btnViewResponses), msg, Snackbar.LENGTH_SHORT).show();
             }
             @Override
             public void onSyncError(String error) {

@@ -84,56 +84,56 @@ public class DICQuestionnaireActivity extends AppCompatActivity {
             case 6: buildRMTech(); break;
             case 7: buildMarketsGeneral(); break;
         }
-        findViewById(R.id.scrollView).scrollTo(0, 0);
+        ((androidx.core.widget.NestedScrollView) findViewById(R.id.scrollView)).scrollTo(0, 0);
     }
 
     private void buildDistrictProfile() {
         header("District Profile");
         label("Name of the District *");
-        textInput("District name", "district_name", false);
+        textField("District name", "district_name", false);
         header("Predominant Economic Activity (%)");
-        label("Agriculture %"); textInput("e.g. 40", "agri_pct", true);
-        label("Dairy and Poultry %"); textInput("e.g. 10", "dairy_pct", true);
-        label("Mining %"); textInput("e.g. 5", "mining_pct", true);
-        label("Manufacturing Industries %"); textInput("e.g. 25", "mfg_pct", true);
-        label("Service Sector %"); textInput("e.g. 20", "service_pct", true);
+        label("Agriculture %"); textField("e.g. 40", "agri_pct", true);
+        label("Dairy and Poultry %"); textField("e.g. 10", "dairy_pct", true);
+        label("Mining %"); textField("e.g. 5", "mining_pct", true);
+        label("Manufacturing Industries %"); textField("e.g. 25", "mfg_pct", true);
+        label("Service Sector %"); textField("e.g. 20", "service_pct", true);
         header("Natural Resources & Raw Materials");
         label("Key natural resources and underutilized raw materials with reasons");
-        multiInput("List minerals, agriculture, forest, water, energy resources", "resources_raw_materials");
+        multiField("List minerals, agriculture, forest, water, energy resources", "resources_raw_materials");
         header("Future Industrial Potential");
         label("Future industries that can be set up based on existing resources");
-        multiInput("e.g. Agriculture → Food processing | Dairy → Dairy processing | Minerals → Cement", "future_potential");
+        multiField("e.g. Agriculture → Food processing | Dairy → Dairy processing | Minerals → Cement", "future_potential");
     }
 
     private void buildIndustrialProfile() {
         header("Industrial Unit Count");
-        label("Number of active Large Units"); textInput("Count", "large_units", true);
-        label("Number of active Medium Units"); textInput("Count", "medium_units", true);
-        label("Number of active Small Units"); textInput("Count", "small_units", true);
-        label("Number of active Micro Units"); textInput("Count", "micro_units", true);
-        label("Sick / closed units and reasons"); multiInput("Type, count, sector, reasons", "sick_units");
+        label("Number of active Large Units"); textField("Count", "large_units", true);
+        label("Number of active Medium Units"); textField("Count", "medium_units", true);
+        label("Number of active Small Units"); textField("Count", "small_units", true);
+        label("Number of active Micro Units"); textField("Count", "micro_units", true);
+        label("Sick / closed units and reasons"); multiField("Type, count, sector, reasons", "sick_units");
         header("Unregistered Units");
         label("Approximate unregistered entities and reasons");
-        multiInput("Industry type, unregistered count, reasons", "unregistered_units");
+        multiField("Industry type, unregistered count, reasons", "unregistered_units");
         header("Sectoral Clusters");
         label("Sectoral clusters / IDAs / TGIIC parks present?");
         radio("clusters_present", new String[]{"Yes","No"});
         label("Cluster details (name, sector, area, units, infrastructure adequacy)");
-        multiInput("Cluster details", "cluster_details");
+        multiField("Cluster details", "cluster_details");
     }
 
     private void buildInstitutional() {
         header("Institutional Challenges");
         label("Internal Capacity of DIC (staff, IT systems, training gaps)");
-        multiInput("Describe challenges", "dic_capacity");
+        multiField("Describe challenges", "dic_capacity");
         label("Promotion of Entrepreneurship (investment, mentorship, startup awareness)");
-        multiInput("Describe challenges", "entrepreneurship");
+        multiField("Describe challenges", "entrepreneurship");
         label("Single Window System & Clearances (delays, coordination)");
-        multiInput("Describe challenges", "single_window");
+        multiField("Describe challenges", "single_window");
         label("Support to MSMEs (infrastructure, working capital, technology, markets)");
-        multiInput("Describe challenges", "msme_support");
+        multiField("Describe challenges", "msme_support");
         label("Implementation of Government Schemes (skill, subsidy disbursements)");
-        multiInput("Describe challenges", "govt_schemes");
+        multiField("Describe challenges", "govt_schemes");
         header("Cluster Development Programme Barriers");
         checkbox("cdp_land", "Limited Land Availability");
         checkbox("cdp_low_msme", "Low MSME participation");
@@ -144,27 +144,27 @@ public class DICQuestionnaireActivity extends AppCompatActivity {
     private void buildLandInfra() {
         header("Access to Land");
         label("Challenges in acquiring industrial land");
-        multiInput("Availability, affordability, underutilization, allotment process", "land_challenges");
+        multiField("Availability, affordability, underutilization, allotment process", "land_challenges");
         header("Infrastructure Challenges");
         label("Power (outages, voltage, tariffs, connection delays)");
-        multiInput("Power challenges", "power_challenges");
+        multiField("Power challenges", "power_challenges");
         label("Industrial Water (supply, shortages, pipelines, cost)");
-        multiInput("Water challenges", "water_challenges");
+        multiField("Water challenges", "water_challenges");
         label("Roads & Connectivity (internal roads, last-mile, highway linkage)");
-        multiInput("Road challenges", "road_challenges");
+        multiField("Road challenges", "road_challenges");
         label("Common Facilities (ETP, testing labs, warehousing)");
-        multiInput("Common facility gaps", "common_facility_gaps");
+        multiField("Common facility gaps", "common_facility_gaps");
         label("Drainage & Sewerage");
-        multiInput("Drainage challenges", "drainage_challenges");
+        multiField("Drainage challenges", "drainage_challenges");
         label("Logistics (warehousing, cold storage, ICD/dry port, freight centres)");
-        multiInput("Logistics gaps", "logistics_challenges");
+        multiField("Logistics gaps", "logistics_challenges");
         label("Social Infrastructure near IDAs (housing, water, sanitation, healthcare, schools)");
-        multiInput("Social infrastructure gaps", "social_infra");
+        multiField("Social infrastructure gaps", "social_infra");
         header("Flatted Factory & Energy");
         label("Potential for flatted-factory industrial infrastructure");
-        multiInput("Readiness, locations, enablers, constraints", "flatted_factory");
-        label("Renewable energy utilization %"); textInput("e.g. 15", "renewable_pct", true);
-        label("Captive power utilization %"); textInput("e.g. 10", "captive_pct", true);
+        multiField("Readiness, locations, enablers, constraints", "flatted_factory");
+        label("Renewable energy utilization %"); textField("e.g. 15", "renewable_pct", true);
+        label("Captive power utilization %"); textField("e.g. 10", "captive_pct", true);
     }
 
     private void buildFinance() {
@@ -174,7 +174,7 @@ public class DICQuestionnaireActivity extends AppCompatActivity {
         label("Average loan disbursement time for T-PRIDE");
         radio("tpride_duration", new String[]{"<15 days","15–30 days","30–45 days","45–60 days",">60 days"});
         label("Challenges in loan/subsidy disbursement");
-        multiInput("Process, documentation, release timeline challenges", "finance_challenges");
+        multiField("Process, documentation, release timeline challenges", "finance_challenges");
         header("MSME Informal Finance");
         label("Proportion of MSMEs relying on informal finance sources");
         radio("informal_finance", new String[]{"<10%","10–25%","25–50%","50–75%",">75%"});
@@ -187,20 +187,20 @@ public class DICQuestionnaireActivity extends AppCompatActivity {
         label("Level of awareness among industries on industrial loans/subsidies");
         radio("finance_awareness", new String[]{"<25%","25–50%","51–75%",">75%"});
         label("Recommended interventions to improve finance access");
-        multiInput("Awareness, simplify process, handholding, etc.", "finance_interventions");
+        multiField("Awareness, simplify process, handholding, etc.", "finance_interventions");
     }
 
     private void buildLabour() {
         header("Access to Labour & Skills");
         label("Shortage of skilled industrial labour (sector, job role, reasons)");
-        multiInput("Sector | Job role | Reasons for shortage", "skilled_shortage");
+        multiField("Sector | Job role | Reasons for shortage", "skilled_shortage");
         label("Shortage of semi-skilled labour (sector, job role, reasons)");
-        multiInput("Sector | Job role | Reasons for shortage", "semiskilled_shortage");
+        multiField("Sector | Job role | Reasons for shortage", "semiskilled_shortage");
         label("Challenges in recruiting skilled & semi-skilled workforce");
-        multiInput("Youth unavailability, low wages, migration, housing, etc.", "recruitment_challenges");
+        multiField("Youth unavailability, low wages, migration, housing, etc.", "recruitment_challenges");
         header("Skill Gaps");
         label("Major gaps in district-level skilling ecosystem");
-        multiInput("Curriculum mismatch, outdated trades, placement gaps, trainer quality", "skill_gaps");
+        multiField("Curriculum mismatch, outdated trades, placement gaps, trainer quality", "skill_gaps");
         label("Awareness of skill development programs among youth and industries");
         radio("skill_awareness", new String[]{"<10%","10–25%","25–50%",">50%"});
         header("Active Government Skill Programs in District");
@@ -211,20 +211,20 @@ public class DICQuestionnaireActivity extends AppCompatActivity {
         checkbox("skill_wehub", "WE-Hub Programs");
         checkbox("skill_aspire", "ASPIRE");
         header("Skilling Institutes");
-        label("Number of ITIs"); textInput("Count", "iti_count", true);
-        label("Number of Polytechnic colleges"); textInput("Count", "poly_count", true);
+        label("Number of ITIs"); textField("Count", "iti_count", true);
+        label("Number of Polytechnic colleges"); textField("Count", "poly_count", true);
         label("Issues with skilling institutes");
-        multiInput("Infrastructure, curriculum, placement, trainer quality", "institute_issues");
+        multiField("Infrastructure, curriculum, placement, trainer quality", "institute_issues");
         label("Measures to promote women and PwD inclusion");
-        multiInput("Current measures and suggestions", "inclusion_measures");
+        multiField("Current measures and suggestions", "inclusion_measures");
         label("Suggested interventions for overall workforce improvement");
-        multiInput("Interventions to improve workforce and skilling", "workforce_interventions");
+        multiField("Interventions to improve workforce and skilling", "workforce_interventions");
     }
 
     private void buildRMTech() {
         header("Access to Raw Materials");
         label("Prominent raw materials, source, challenges and interventions");
-        multiInput("RM name | Source (intra/inter-state/import) | Issues | Interventions", "rm_details");
+        multiField("RM name | Source (intra/inter-state/import) | Issues | Interventions", "rm_details");
         label("Awareness of DIC support for RM procurement");
         radio("rm_dic_awareness", new String[]{"<25%","25–50%","51–75%",">75%"});
         label("Awareness of RM financial assistance schemes (NSIC, T-IDEA, TG Logistics Policy)");
@@ -233,18 +233,18 @@ public class DICQuestionnaireActivity extends AppCompatActivity {
         label("Percentage of MSMEs relying on manual or semi-automated processes");
         radio("manual_process_pct", new String[]{"<25%","25–50%","51–75%",">75%"});
         label("Innovation ecosystem facilities available (tech centres, CFCs, CoEs)");
-        multiInput("List available facilities", "innovation_facilities");
+        multiField("List available facilities", "innovation_facilities");
         header("Technology Upgradation Scheme Beneficiaries");
-        label("MSME Champions (CLCS-TUS)"); textInput("Count", "tech_clcs", true);
-        label("T-IDEA beneficiaries"); textInput("Count", "tech_tidea", true);
-        label("T-PRIDE beneficiaries"); textInput("Count", "tech_tpride", true);
-        label("Yantram Fund beneficiaries"); textInput("Count", "tech_yantram", true);
-        label("ZED Green Manufacturing beneficiaries"); textInput("Count", "tech_zed", true);
+        label("MSME Champions (CLCS-TUS)"); textField("Count", "tech_clcs", true);
+        label("T-IDEA beneficiaries"); textField("Count", "tech_tidea", true);
+        label("T-PRIDE beneficiaries"); textField("Count", "tech_tpride", true);
+        label("Yantram Fund beneficiaries"); textField("Count", "tech_yantram", true);
+        label("ZED Green Manufacturing beneficiaries"); textField("Count", "tech_zed", true);
         header("Technology Adoption Barriers");
         checkbox("tech_highcost", "High costs"); checkbox("tech_skillgap", "Skills gap");
         checkbox("tech_infra", "Infrastructure limitations"); checkbox("tech_rd", "Limited access to R&D");
         label("Interventions to accelerate technology adoption");
-        multiInput("Suggested interventions", "tech_interventions");
+        multiField("Suggested interventions", "tech_interventions");
     }
 
     private void buildMarketsGeneral() {
@@ -263,14 +263,14 @@ public class DICQuestionnaireActivity extends AppCompatActivity {
         label("Distance from district industrial parks to nearest NH/SH");
         radio("nh_distance", new String[]{"1–3 km","3–10 km","10–20 km",">20 km"});
         label("Industries with export potential but not currently exporting");
-        multiInput("Industry type | Product | Issues | Solutions", "export_potential");
+        multiField("Industry type | Product | Issues | Solutions", "export_potential");
         label("Immediate interventions to expand market access");
-        multiInput("Suggested domestic and international market interventions", "market_interventions");
+        multiField("Suggested domestic and international market interventions", "market_interventions");
         header("General — Growth & Investment");
         label("Overall industrial growth potential over next 5–10 years");
-        multiInput("Key drivers, sectors, supporting factors", "growth_potential");
+        multiField("Key drivers, sectors, supporting factors", "growth_potential");
         label("Which sectors have highest potential for growth/investment?");
-        multiInput("Sectors with justification", "high_potential_sectors");
+        multiField("Sectors with justification", "high_potential_sectors");
         label("What restricts new industrial investment?");
         checkbox("restrict_land", "Land availability issues");
         checkbox("restrict_infra", "Infrastructure gaps");
@@ -279,15 +279,15 @@ public class DICQuestionnaireActivity extends AppCompatActivity {
         checkbox("restrict_market", "Market access");
         checkbox("restrict_branding", "Poor district-level branding");
         label("Most urgent interventions required");
-        multiInput("Priority interventions", "key_interventions");
+        multiField("Priority interventions", "key_interventions");
         label("Barriers for first-generation entrepreneurs");
         checkbox("barrier_mentoring", "Lack of mentoring support");
         checkbox("barrier_social", "Social/market access constraints");
         checkbox("barrier_awareness", "Low awareness of support schemes");
         label("Key sector-specific challenges and solutions");
-        multiInput("Sector | Major challenges | Suggested interventions", "sector_challenges");
+        multiField("Sector | Major challenges | Suggested interventions", "sector_challenges");
         label("Current status of industrial waste management infrastructure");
-        multiInput("Waste management status and gaps", "waste_mgmt");
+        multiField("Waste management status and gaps", "waste_mgmt");
     }
 
     // ── UI Helpers ──────────────────────────────────────────────────────────
@@ -322,7 +322,7 @@ public class DICQuestionnaireActivity extends AppCompatActivity {
         formContainer.addView(tv);
     }
 
-    private TextInputEditText textInput(String hint, String key, boolean numeric) {
+    private TextInputEditText textField(String hint, String key, boolean numeric) {
         TextInputLayout til = new TextInputLayout(this, null,
             com.google.android.material.R.attr.textInputOutlinedStyle);
         til.setHint(hint);
@@ -340,7 +340,7 @@ public class DICQuestionnaireActivity extends AppCompatActivity {
         return et;
     }
 
-    private TextInputEditText multiInput(String hint, String key) {
+    private TextInputEditText multiField(String hint, String key) {
         TextInputLayout til = new TextInputLayout(this, null,
             com.google.android.material.R.attr.textInputOutlinedStyle);
         til.setHint(hint);
