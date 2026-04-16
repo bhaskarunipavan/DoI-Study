@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DIC Survey</string>
+    <string name="login_title">DIC Survey App</string>
+    <string name="login_subtitle">Telangana Industrial Development</string>
+    <string name="username_hint">Username / Officer ID</string>
+    <string name="password_hint">Password</string>
+    <string name="btn_login">Login</string>
+    <string name="select_questionnaire">Select Questionnaire Type</string>
+    <string name="dic_questionnaire">DoI / DIC Questionnaire</string>
+    <string name="enterprise_questionnaire">Industry / Enterprise Survey</string>
+    <string name="association_questionnaire">Industrial Association Survey</string>
+    <string name="stakeholder_questionnaire">Stakeholder Questionnaire</string>
+    <string name="dic_desc">District profile, industrial units, infrastructure assessment</string>
+    <string name="enterprise_desc">Individual industry/enterprise detailed survey</string>
+    <string name="association_desc">Industrial association and cluster survey</string>
+    <string name="stakeholder_desc">Line departments, banks, skill institutions</string>
+    <string name="sync_status_online">Online — Synced</string>
+    <string name="sync_status_offline">Offline — %d pending</string>
+    <string name="btn_save_draft">Save Draft</string>
+    <string name="btn_submit">Submit Response</string>
+    <string name="btn_sync_now">Sync Now</string>
+    <string name="responses">Responses</string>
+    <string name="no_responses">No responses yet</string>
+    <string name="district_label">District</string>
+    <string name="section_complete">Section Complete</string>
+    <string name="required_field">This field is required</string>
+    <string name="draft_saved">Draft saved successfully</string>
+    <string name="submitted">Response submitted</string>
+    <string name="sync_success">Sync successful</string>
+    <string name="sync_failed">Sync failed — will retry when online</string>
+    <string name="confirm_submit">Submit this response?</string>
+    <string name="confirm_submit_msg">Once submitted, it will be synced to the central database.</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+    <string name="logout">Logout</string>
+    <string name="version">Version 1.0</string>
+    <string name="telangana_govt">Government of Telangana</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="step_of">Step %1$d of %2$d</string>
+    <string name="fill_all">Please fill all required fields</string>
+    <string name="offline_mode">Working Offline</string>
+    <string name="back_online">Back Online — Syncing…</string>
+    <string name="export_csv">Export to CSV</string>
+</resources>
