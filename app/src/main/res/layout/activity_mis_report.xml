@@ -14,34 +14,6 @@
         app:titleTextColor="@color/white"
         app:title="MIS Reports"/>
 
-    <!-- Tab bar -->
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/colorPrimaryDark"
-        app:tabTextColor="#90CAF9"
-        app:tabSelectedTextColor="@color/white"
-        app:tabIndicatorColor="@color/colorSecondary"
-        app:tabMode="scrollable">
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Overview"/>
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="By District"/>
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="By Type"/>
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sync Status"/>
-    </com.google.android.material.tabs.TabLayout>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -56,7 +28,6 @@
 
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Export button -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -66,22 +37,10 @@
         android:elevation="8dp">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnExportPDF"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_weight="1"
-            android:text="Share Report"
-            android:layout_marginEnd="8dp"
-            app:strokeColor="@color/colorPrimary"
-            android:textColor="@color/colorPrimary"/>
-
-        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnRefresh"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:layout_weight="1"
-            android:text="Refresh"
+            android:text="Refresh Report"
             app:cornerRadius="8dp"/>
 
     </LinearLayout>
