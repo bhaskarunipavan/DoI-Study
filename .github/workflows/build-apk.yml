@@ -3,17 +3,16 @@ name: Build APK
 on:
   push:
     branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Build Debug APK
+  build-and-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Set up JDK 17
@@ -23,39 +22,16 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      - name: Cache Gradle packages
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
-
-      - name: Setup Android SDK
-        run: |
-          echo "ANDROID_HOME=$ANDROID_HOME"
-          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
-          ls $ANDROID_HOME/platforms || true
-          ls $ANDROID_HOME/build-tools || true
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list_installed || true
-
-      - name: Accept Android SDK licenses
-        run: |
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
-          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platforms;android-34" "build-tools;34.0.0" || true
-
-      - name: Grant execute permission for gradlew
+      - name: Make gradlew executable
         run: chmod +x gradlew
 
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug --stacktrace --no-daemon --info 2>&1 | tail -100
+      - name: Build debug APK
+        run: ./gradlew assembleDebug --no-daemon
         env:
           ANDROID_HOME: ${{ env.ANDROID_HOME }}
 
-      - name: List APK output
-        run: find . -name "*.apk" -type f
+      - name: Verify APK exists
+        run: ls -lh app/build/outputs/apk/debug/app-debug.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
@@ -64,50 +40,25 @@ jobs:
           path: app/build/outputs/apk/debug/app-debug.apk
           retention-days: 30
 
-  release:
-    name: Create Release
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
-    permissions:
-      contents: write
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Download APK artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: DIC-Survey-APK
-          path: ./apk
-
-      - name: Get short SHA
-        id: vars
-        run: echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-
-      - name: Create Release and upload APK
+      - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: build-${{ steps.vars.outputs.sha_short }}
-          name: "DIC Survey APK — ${{ steps.vars.outputs.sha_short }}"
+          tag_name: v1.0.${{ github.run_number }}
+          name: DIC Survey v1.0.${{ github.run_number }}
           body: |
-            ## DIC Survey App — Android APK
-            Built from commit `${{ steps.vars.outputs.sha_short }}`
+            ## DIC Survey Android APK - Build ${{ github.run_number }}
 
-            ### Install Instructions
-            1. Download `app-debug.apk` below
-            2. Phone: Settings → Security → Allow unknown sources
-            3. Open APK → Install → Done
+            ### How to install
+            1. Download app-debug.apk below
+            2. Phone: Settings > Security > Allow unknown sources
+            3. Open the APK file and tap Install
+            4. Login with Officer ID and select district
 
-            ### What's included
-            - 4 questionnaire types: DIC/DoI, Enterprise, Association, Stakeholder
-            - MIS Reports dashboard with charts and stats
-            - Full offline mode with auto-sync to Supabase
+            ### Features
+            - DIC, Enterprise, Association, Stakeholder questionnaires
+            - MIS Reports with charts and stats
+            - Full offline mode, auto-sync to Supabase
             - All 33 Telangana districts
-            - CSV export
-          files: ./apk/app-debug.apk
-          draft: false
-          prerelease: false
+          files: app/build/outputs/apk/debug/app-debug.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
