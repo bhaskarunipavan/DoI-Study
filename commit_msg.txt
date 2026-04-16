@@ -1,1 +1,1 @@
-Fix gradlew JVM options quoting error
+Fix stream API calls and enable desugaring for API 24 compat

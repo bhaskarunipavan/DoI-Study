@@ -101,15 +101,16 @@ public class MISReportActivity extends AppCompatActivity {
 
         if (!districtMap.isEmpty()) {
             addSectionHeader("Top Districts by Response Count");
-            districtMap.entrySet().stream()
-                .sorted((a, b) -> b.getValue() - a.getValue()).limit(10)
-                .forEach(e -> addDistrictRow(e.getKey(), e.getValue(), total));
+            java.util.List<Map.Entry<String,Integer>> dList = new java.util.ArrayList<>(districtMap.entrySet());
+            java.util.Collections.sort(dList, (a, b) -> b.getValue() - a.getValue());
+            int dLimit = Math.min(10, dList.size());
+            for (int i = 0; i < dLimit; i++) addDistrictRow(dList.get(i).getKey(), dList.get(i).getValue(), total);
         }
         if (!officerMap.isEmpty()) {
             addSectionHeader("Responses by Officer");
-            officerMap.entrySet().stream()
-                .sorted((a, b) -> b.getValue() - a.getValue())
-                .forEach(e -> addOfficerRow(e.getKey(), e.getValue()));
+            java.util.List<Map.Entry<String,Integer>> oList = new java.util.ArrayList<>(officerMap.entrySet());
+            java.util.Collections.sort(oList, (a, b) -> b.getValue() - a.getValue());
+            for (Map.Entry<String,Integer> e : oList) addOfficerRow(e.getKey(), e.getValue());
         }
 
         addSectionHeader("Sync Status Summary");
@@ -117,18 +118,19 @@ public class MISReportActivity extends AppCompatActivity {
 
         addSectionHeader("Recent Activity (Last 10)");
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMM yyyy HH:mm", Locale.getDefault());
-        all.stream()
-            .sorted((a, b) -> Long.compare(
-                b.updatedAt > 0 ? b.updatedAt : b.createdAt,
-                a.updatedAt > 0 ? a.updatedAt : a.createdAt))
-            .limit(10)
-            .forEach(r -> {
-                long ts = r.updatedAt > 0 ? r.updatedAt : r.createdAt;
-                addActivityRow(typeLabel(r.questionnaireType),
-                    r.district != null ? r.district : "--",
-                    r.status != null ? r.status : "DRAFT",
-                    ts > 0 ? sdf.format(new Date(ts)) : "--");
-            });
+        java.util.List<SurveyResponse> sorted = new java.util.ArrayList<>(all);
+        java.util.Collections.sort(sorted, (a, b) -> Long.compare(
+            b.updatedAt > 0 ? b.updatedAt : b.createdAt,
+            a.updatedAt > 0 ? a.updatedAt : a.createdAt));
+        int limit = Math.min(10, sorted.size());
+        for (int i = 0; i < limit; i++) {
+            SurveyResponse r = sorted.get(i);
+            long ts = r.updatedAt > 0 ? r.updatedAt : r.createdAt;
+            addActivityRow(typeLabel(r.questionnaireType),
+                r.district != null ? r.district : "--",
+                r.status != null ? r.status : "DRAFT",
+                ts > 0 ? sdf.format(new Date(ts)) : "--");
+        }
 
         TextView footer = new TextView(this);
         footer.setText("Report generated: " + new SimpleDateFormat(
