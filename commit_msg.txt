@@ -1,1 +1,1 @@
-Fix: single job build+release, no artifact passing
+Fix: correct ANDROID_HOME path and fix gradlew script

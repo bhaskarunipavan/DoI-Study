@@ -26,9 +26,10 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build debug APK
-        run: ./gradlew assembleDebug --no-daemon
+        run: ./gradlew assembleDebug
         env:
-          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+          ANDROID_HOME: /usr/local/lib/android/sdk
+          ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
 
       - name: Verify APK exists
         run: ls -lh app/build/outputs/apk/debug/app-debug.apk
@@ -52,13 +53,13 @@ jobs:
             1. Download app-debug.apk below
             2. Phone: Settings > Security > Allow unknown sources
             3. Open the APK file and tap Install
-            4. Login with Officer ID and select district
+            4. Login with Officer ID and select your district
 
             ### Features
             - DIC, Enterprise, Association, Stakeholder questionnaires
             - MIS Reports with charts and stats
             - Full offline mode, auto-sync to Supabase
-            - All 33 Telangana districts
+            - All 33 Telangana districts pre-loaded
           files: app/build/outputs/apk/debug/app-debug.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
