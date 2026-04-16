@@ -41,6 +41,8 @@
             android:exported="false" />
         <activity android:name=".activities.ResponsesActivity"
             android:exported="false" />
+        <activity android:name=".activities.MISReportActivity"
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

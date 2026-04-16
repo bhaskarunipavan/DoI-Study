@@ -94,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.cardStakeholder).setOnClickListener(v -> openQuestionnaire("STAKEHOLDER"));
         findViewById(R.id.btnViewResponses).setOnClickListener(v ->
             startActivity(new Intent(this, ResponsesActivity.class)));
+        findViewById(R.id.btnMISReport).setOnClickListener(v ->
+            startActivity(new Intent(this, MISReportActivity.class)));
 
         // Auto-sync on start if online
         if (isOnline) triggerSync();
